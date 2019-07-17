@@ -1,6 +1,6 @@
 name: useful_classes
 description: A new Flutter package project.
-version: 0.0.1
+version: 0.0.4
 author: Ricardo Crescenti
 homepage:
 
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  rxdart: ^0.22.0
 
 dev_dependencies:
   flutter_test:
