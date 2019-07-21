@@ -1,6 +1,6 @@
 import 'dart:async';
 
-/// Class for implement disposable method
+/// Class to implement disposable in classes
 abstract class Disposable {
   final StreamController<dynamic> _onDispose = StreamController.broadcast();
   Stream<dynamic> get onDispose => _onDispose.stream;

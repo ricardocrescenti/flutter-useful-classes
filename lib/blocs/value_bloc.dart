@@ -2,6 +2,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:useful_classes/useful_classes.dart';
 
+/// Simple Bloc to make it easy to use StreamBuilder in your code
 class ValueBloc<T> extends Disposable {
 
   final BehaviorSubject<T> bloc = BehaviorSubject();
@@ -11,12 +12,8 @@ class ValueBloc<T> extends Disposable {
 
   set value(T value) => bloc.sink.add(value);
 
-  ValueBloc({T initValue, Function(T data) onChange}) {
+  ValueBloc({T initValue}) {
     updateValue(initValue);
-
-    if (onChange != null) {
-      value$.listen(onChange);
-    }
   }
 
   updateValue(T newValue) {

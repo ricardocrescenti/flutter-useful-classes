@@ -1,7 +1,6 @@
 import 'package:useful_classes/useful_classes.dart';
 
-import 'value_bloc.dart';
-
+/// Class to control multiple "ValueBloc"
 class ValuesBloc extends Disposable {
   final Map<String, ValueBloc<dynamic>> fields;
   
@@ -26,12 +25,12 @@ class ValuesBloc extends Disposable {
     });
   }
 
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> json = {};
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
     fields.forEach((key, field) {
-      json[key] = field.value;
+      map[key] = field.value;
     });
-    return json;
+    return map;
   }
 
   @override

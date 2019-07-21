@@ -1,8 +1,8 @@
 name: useful_classes
-description: A new Flutter package project.
-version: 0.0.4
-author: Ricardo Crescenti
-homepage:
+description: Pack with useful classes to facilitate the creation of other resources
+version: 0.0.1
+author: Ricardo Crescenti <ricardo.crescenti@gmail.com>
+homepage: https://github.com/ricardocrescenti
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
