@@ -25,10 +25,12 @@ class ValuesBloc extends Disposable {
     });
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({List<String> ignoredFields}) {
     Map<String, dynamic> map = {};
     fields.forEach((key, field) {
-      map[key] = field.value;
+      if (ignoredFields == null || !ignoredFields.contains(key)) {
+        map[key] = field.value;
+      }
     });
     return map;
   }

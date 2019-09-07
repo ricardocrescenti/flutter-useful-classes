@@ -1,6 +1,6 @@
 name: useful_classes
 description: Pack with useful classes to facilitate the creation of other resources
-version: 0.0.1
+version: 0.0.2
 author: Ricardo Crescenti <ricardo.crescenti@gmail.com>
 homepage: https://github.com/ricardocrescenti
 
@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   rxdart: ^0.22.0
+  scoped_model: 1.0.1
 
 dev_dependencies:
   flutter_test:
