@@ -1,49 +1,78 @@
 # useful_classes
 
-Package with useful classes to facilitate the creation of other resources
+Package with useful classes to make it easy to create other features
 
 ```dart
 import 'package:useful_classes/useful_classes.dart';
 ```
 
-## ValueBloc
+# State Management Classes
 
-Simple Bloc to make it easy to use StreamBuilder in your code
+## **ValueProvider / ValueConsumer**
+
+Simple class to notify listeners when value is changed.
 
 ```dart
-final ValueBloc<String> description = ValueBloc<String>(initialValue: 'Initial Description');
-description.updateValue('Another Description');
-description.dispose();
+ValueProvider<String> description = ValueProvider(initialValue: 'Initial Description');
 ```
 
-## ValuesBloc
-
-Controlling multiple "ValueBloc"
+You can modify value setting property 'value' or calling method 'setValue'.
 
 ```dart
-final ValuesBloc packageInfo = ValuesBloc({
-    'name': ValueBloc<String>(),
-    'version': ValueBloc<String>(),
-});
-packageInfo.updateValues({
-    'name': 'useful_classes',
-    'version': '0.0.1'
-});
-packageInfo.dispose();
+description.value = 'Another Description';
+description.setValue('Another Description');
 ```
 
-## Disposable
-
-Class to implement disposable in classes
+Example to consume this value. In this case, when changing the description value, the Text Widget is rebuilt and shows the new value.
 
 ```dart
-class Example extends Disposable {
-    final ValueBloc<String> description = ValueBloc<String>();
+ValueConsumer<String>(
+  provider: description,
+  builder: (context, value) => Text(value)
+);
+```
 
-    @override
-    void dispose() {
-        description.dispose();
-        super.dispose();
+## **ValuesProvider / ValuesConsumer**
+
+Controlling multiple values and ValueProvider.
+
+In the bellow example , is declared 'packageInfo' with the values 'name' os type String and value 'version' of type ValueProvider<String>. If you use a ValueProvider in value of ValuesProvider, on get value, is returned the value of ValueProvider, to get the ValueProvider instance, you need use 'getValueProvider' method.
+
+```dart
+ValuesProvider packageInfo = ValuesProvider({
+  'name': 'package_name',
+  'version': ValueProvider<String>(initialValue: ''),
+});
+```
+
+To update the values on ValuesProvider use 'setValues' method passing a Map<String, dynamic>, and to update a single value, use 'setValue' with 'fieldName' and 'newValue' arguments.
+
+```dart
+packageInfo.setValues({
+  'name': 'module_provider',
+  'version': '1.0.0'
+});
+```
+
+Example for consume all values of the ValuesProvider.
+
+```dart
+ValuesConsumer(
+  provider: packageInfo,
+  builder: (context, values) => Column() {
+    childs: Widget[] {
+      Text(values['name']),
+      Text(values['version'])
     }
-}
+  }
+);
+```
+
+Example for consume a ValueProvider in the ValuesProvider.
+
+```dart
+ValueConsumer<String>(
+    provider: packageInfo.getValueProvider('version'),
+    builder: (context, value) => Text(value)
+);
 ```

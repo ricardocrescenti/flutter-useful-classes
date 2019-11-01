@@ -1,11 +1,16 @@
-## 0.0.1
+## 1.0.0
 
-* Initial version
+* Added ValueProvider, ValuesProvider, ListProvider with your consumers.
+* Removed ValueBloc and ValuesBloc.
+
+## 0.0.3
+
+* Removed ValueModel, ValuesModel
 
 ## 0.0.2
 
 * Added ValueModel, ValuesModel
 
-## 0.0.3
+## 0.0.1
 
-* Removed ValueModel, ValuesModel
+* Initial version
