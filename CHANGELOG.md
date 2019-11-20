@@ -1,3 +1,8 @@
+## 1.1.0
+
+* Removed providers, moved to module [provider_package](https://github.com/ricardocrescenti/flutter-module-provider) package.
+* Added `BasicLocalization` to facilitate a internationalization of applications e packages.
+
 ## 1.0.0
 
 * Added ValueProvider, ValuesProvider, ListProvider with your consumers.
