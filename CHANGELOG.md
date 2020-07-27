@@ -1,3 +1,9 @@
+## 1.2.0
+
+* Restructured package and left only auxiliary classes for the development of other packages.
+* Added `Logger` class.
+* Added `OnDispose` class.
+
 ## 1.1.0
 
 * Removed providers, moved to module [provider_package](https://github.com/ricardocrescenti/flutter-module-provider) package.
