@@ -15,13 +15,13 @@ import 'package:flutter/foundation.dart';
 ///   notifyDispose();
 /// }
 /// ```
-abstract class Disposable {
+abstract class OnDispose {
   final StreamController<dynamic> _onDispose = StreamController.broadcast();
   Stream<dynamic> get onDispose => _onDispose.stream;
   
   /// Notify listeners with dispose of this object
   @mustCallSuper
-  dispose() {
+  notifyDispose() {
     if (!_onDispose.isClosed) {
       _onDispose.add(this);
       _onDispose.close();

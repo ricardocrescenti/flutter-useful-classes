@@ -1,4 +1,4 @@
 library useful_classes;
 
-export 'classes/disposable.dart';
-export 'classes/log.dart';
+export 'classes/on_dispose.dart';
+export 'classes/logger.dart';
