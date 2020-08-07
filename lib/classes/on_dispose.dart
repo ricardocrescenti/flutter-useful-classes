@@ -1,30 +1,43 @@
-import 'dart:async';
+//import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
 /// This class allows you to implement listeners notification when disposing 
 /// object.
 /// 
-/// To notify listeners, create a `dispose()` method in your class and, after 
-/// all objects are disposed, call `notifyDispose()`.
-/// 
-/// Sample `Dispose ()` method to use in your class
+/// To notify listeners, create a `dispose()` method in your class.
 /// 
 /// ```dart
-/// dispose() {
-///   notifyDispose();
+/// class Test with OnDispose {
+///     // your class structure
+/// 
+///     @override
+///     dispose() {
+///         // dispose your class and call `super.dispose()` to notify listeners
+///         super.dispose();
+///     }
 /// }
+/// 
+/// final Test test = Test();
+/// test.onDispose.add(() => print('Object disposed'));
+/// 
+/// test.dispose();
 /// ```
 abstract class OnDispose {
-  final StreamController<dynamic> _onDispose = StreamController.broadcast();
-  Stream<dynamic> get onDispose => _onDispose.stream;
+
+  /// List of methods that will be called when the object is dropped.
+  final List<Function(dynamic)> onDispose = List();
   
-  /// Notify listeners with dispose of this object
+  /// Method that discards the object and notifies listeners
+  @mustCallSuper
+  dispose() {
+    notifyDispose();
+  }
+
+  /// Notify listeners with dispose of this object.
   @mustCallSuper
   notifyDispose() {
-    if (!_onDispose.isClosed) {
-      _onDispose.add(this);
-      _onDispose.close();
-    }
+    onDispose.forEach((element) => element(this));
+    onDispose.clear();
   }
 }
