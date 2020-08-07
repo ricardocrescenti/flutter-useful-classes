@@ -1,4 +1,4 @@
-## 1.2.0
+## 2.0.0
 
 * Restructured package and left only auxiliary classes for the development of other packages.
 * Added `Logger` class.

@@ -1,83 +1,68 @@
-# useful_classes
+# Useful Classes
 
-Package with useful classes to make it easy to create other features and applications
+Package with useful classes to assist in creating other features and applications.
+
+- **[Introduction](#introduction)**
+- **[How to Install](#how-to-install)**
+- **[Logger](#logger)**
+- **[OnDispose](#ondispose)**
+
+## Introduction
+
+This package was developed with the intention of maintaining useful classes that are used in other packages, to avoid replicating copies of the same classes.
+
+## How to install
+
+Add the dependency on `pubspec.yaml`. 
+
+*Informing `^` at the beginning of the version, you will receive all updates that are made from version `2.0.0` up to the version before `3.0.0`.*
+
+```yaml
+dependencies:
+  useful_classes: ^2.0.0
+```
+
+Import the package in the source code.
 
 ```dart
 import 'package:useful_classes/useful_classes.dart';
 ```
 
-## basic_localizations
+## Logger
 
-Implement `localizations` in your packages and applications simply
+The `Logger` class is a simple class for printing information on the terminal only when the application is in debug mode.
 
-First, I recommend that you declare an enumeration with the message names to make it easier to find messages
-
-```dart
-enum WidgetMessages { message1, message2 }
-```
-
-Below is an example localization, with the translation of `message1` and` message2` into English, Spanish and Portuguese.
-
-If the application language does not match the supported languages that are declared in `supportedLocales`, the default language entered in` defaultLocale` will be used.
+Below is an example of implementing the logger.
 
 ```dart
-class DemoLocalizations extends BasicLocalizations {
-  static DemoLocalizations of(BuildContext context) {
-    DemoLocalizations localization = Localizations.of<DemoLocalizations>(context, DemoLocalizations);
-    return localization ?? DemoLocalizations(Localizations.localeOf(context));
-  }
+final Logger logger = Logger();
 
-  DemoLocalizations(Locale locale) : super(locale);
+logger.log('simple log');
+/// output: simple log
 
-  @override
-  Locale get defaultLocale => Locale('en');
+logger.info('information log');
+/// output: 💡 information log
 
-  @override
-  Iterable<Locale> get suportedLocales => [
-    Locale('en'),
-    Locale('es'),
-    Locale('pt'),
-  ];
+logger.warning('warning log');
+/// output: ⚠️ warning log
 
-  @override
-  Map<dynamic, Map<dynamic, String>> get localizedValues => {
-    'en': {
-      WidgetMessages.message1: 'First message',
-      WidgetMessages.message2: 'Second message',
-    },
-    'es': {
-      WidgetMessages.message1: 'Primer mensaje',
-      WidgetMessages.message2: 'Segundo mensaje',
-    },
-    'pt': {
-      WidgetMessages.message1: 'Primeira mensagem',
-      WidgetMessages.message2: 'Segunda mensagem',
-    }
-  };
-}
-
-class DemoLocalizationsDelegate extends BasicLocalizationsDelegate<DemoLocalizations> {
-  DemoLocalizationsDelegate(customLocalization) : super(customLocalization);
-
-  @override
-  DemoLocalizations defaultLocalization(Locale locale) => DemoLocalizations(locale);
-}
+logger.error('error log');
+/// output: ⛔ error log
 ```
 
-Below will be shown how to get messages according to app location
+If it is necessary to add a prefix when printing all logs, use the `prefix` parameter in the class constructor.
 
 ```dart
-Text(DemoLocalizations.of(context)[WidgetMessages.message1]);
+final Logger logger = Logger(prefix: 'My prefix');
 ```
 
-It is not necessary to declare localization in `localizationsDelegates` of `MaterialApp`, but it is important that you enter `supportedLocales` to specify the languages supported by your application.
-
-## disposable
+## OnDispose
 
 Implement in their classes `dispose()` method, allowing notify listeners when class is disposed
 
 ```dart
-class Test with Disposable {
+class Test with OnDispose {
+
     // your class structure
 
     @override
@@ -88,11 +73,11 @@ class Test with Disposable {
 }
 ```
 
-## log
-
-Implement an simple log
+In the example below, the test class will be created and an event added when discarding the class to print the text `Object disposed`.
 
 ```dart
-Log log = Log('test')
-log.info('information')
+final Test test = Test();
+test.onDispose.add((object) => print('Object disposed'));
+
+test.dispose();
 ```
