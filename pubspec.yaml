@@ -1,8 +1,9 @@
 name: useful_classes
+version: 2.0.0
 description: Pack with useful classes to facilitate the creation of other resources
-version: 1.2.0
-author: Ricardo Crescenti <ricardo.crescenti@gmail.com>
 homepage: https://github.com/ricardocrescenti
+repository: https://github.com/ricardocrescenti/flutter-useful-classes
+issue_tracker: https://github.com/ricardocrescenti/flutter-useful-classes/issues
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
