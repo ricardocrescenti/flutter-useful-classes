@@ -1,6 +1,6 @@
 # Useful Classes
 
-Package with useful classes to assist in creating other features and applications.
+Package with useful classes to assist in creating other packages and applications.
 
 - **[Introduction](#introduction)**
 - **[How to Install](#how-to-install)**
@@ -80,4 +80,5 @@ final Test test = Test();
 test.onDispose.add((object) => print('Object disposed'));
 
 test.dispose();
+/// output: Object disposed
 ```
