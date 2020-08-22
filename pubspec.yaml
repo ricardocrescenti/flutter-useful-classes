@@ -1,5 +1,5 @@
 name: useful_classes
-version: 2.0.0
+version: 2.1.0
 description: Pack with useful classes to facilitate the creation of other resources
 homepage: https://github.com/ricardocrescenti
 repository: https://github.com/ricardocrescenti/flutter-useful-classes
@@ -11,9 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  flutter_cupertino_localizations: ^1.0.1
 
 dev_dependencies:
   flutter_test:
