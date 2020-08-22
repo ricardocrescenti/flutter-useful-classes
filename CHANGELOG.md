@@ -1,3 +1,8 @@
+## 2.1.0
+
+* Added `BasicModel` to standardize and facilitate the initialization of classes based on a `JSON` and also to export a class to `JSON`.
+* Removed unused dependencies
+
 ## 2.0.0
 
 * Restructured package and left only auxiliary classes for the development of other packages.

@@ -4,6 +4,7 @@ Package with useful classes to assist in creating other packages and application
 
 - **[Introduction](#introduction)**
 - **[How to Install](#how-to-install)**
+- **[Basic Model](##basic-model)**
 - **[Logger](#logger)**
 - **[OnDispose](#ondispose)**
 
@@ -26,6 +27,65 @@ Import the package in the source code.
 
 ```dart
 import 'package:useful_classes/useful_classes.dart';
+```
+
+## Basic Model
+
+`BasicModel` is very useful for classes that need to be created from a `JSON` (on the flutter a `JSON` is a field and value map) or write a `JSON` from the instance data.
+
+In the example below, a class with the name `UserModel` will be created, after that an example of how to create the class from a `JSON` will be shown and after generating `JSON` again based on the data contained in the class instance.
+
+Class implementation
+
+```dart
+class UserModel extends BasicModel {
+  int id;
+  String name;
+  String email;
+  String phoneNumber;
+
+  @override
+  void readValues() {
+    super.readValues();
+    this.id = readValue<int>('id');
+    this.name = readValue<String>('name');
+    this.email = readValue<String>('email');
+    this.phoneNumber = readValue<String>('phone_number');
+  }
+
+  @override
+  void writeValues() {
+    super.writeValues();
+    writeValue('id', this.id);
+    writeValue('name', this.name);
+    writeValue('email', this.email);
+    writeValue('phone_number', this.phoneNumber);
+  }
+}
+```
+
+Import the class based on a JSON
+
+```dart
+Map<String, dynamic> json = {
+  'id': 1,
+  'name': 'Darth Vader',
+  'email': 'darth.vader@sith.galaxy',
+  'phone_number': '547889633245'
+};
+
+UserModel user = UserModel.fromJson(json);
+```
+
+Generate JSON
+
+```dart
+UserModel user = UserModel()
+  ..name = 'Obi-Wan Kenobi'
+  ..email = 'obiwan.Kenobi@jedi.galaxy'
+  ..phoneNumber = '478998789753'
+
+Map<String, dynamic> json = user.toJson();
 ```
 
 ## Logger
