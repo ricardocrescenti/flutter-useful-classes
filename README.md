@@ -4,7 +4,7 @@ Package with useful classes to assist in creating other packages and application
 
 - **[Introduction](#introduction)**
 - **[How to Install](#how-to-install)**
-- **[Basic Model](##basic-model)**
+- **[Basic Model](#basic-model)**
 - **[Logger](#logger)**
 - **[OnDispose](#ondispose)**
 

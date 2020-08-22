@@ -17,7 +17,7 @@ jobs:
       run: | 
         mkdir -p ~/.pub-cache 
         cat <<EOF > ~/.pub-cache/credentials.json
-        ${{ secrets.CREDENTIALS }}
+        ${{ secrets.PUB_CREDENTIALS }}
         EOF
     - name: Format code
       run: dartfmt -w lib

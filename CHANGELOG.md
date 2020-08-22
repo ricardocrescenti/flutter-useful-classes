@@ -1,3 +1,7 @@
+## 2.1.0+1
+
+* Adjustment in the readme query selector
+
 ## 2.1.0
 
 * Added `BasicModel` to standardize and facilitate the initialization of classes based on a `JSON` and also to export a class to `JSON`.
