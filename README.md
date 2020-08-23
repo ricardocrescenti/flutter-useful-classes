@@ -57,8 +57,7 @@ class UserModel extends BasicModel {
   }
 
   @override
-  void writeValues() {
-    super.writeValues();
+  void writeValues(bool exportOnlyChanged, bool ignoreNulls) {
     writeValue('id', this.id);
     writeValue('name', this.name);
     writeValue('email', this.email);

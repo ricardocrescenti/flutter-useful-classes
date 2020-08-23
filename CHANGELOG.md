@@ -1,7 +1,11 @@
 ## 2.2.0
 
-* Removed the constructor named `empty ()` from the `BasicModel` class.
-* Added the `exportOnlyChanged` and` ignoreNulls` parameters in the `writeValues` method of the` BasicModel` class.
+* Adjustments to the `BasicModel` documentation.
+
+## 2.2.0
+
+* Removed the constructor named `empty` from the `BasicModel` class.
+* Added the `exportOnlyChanged` and `ignoreNulls` parameters in the `writeValues` method of the `BasicModel` class.
 * Repositioned methods of the `BasicModel` class.
 * Added test for the `BasicModel` class.
 
