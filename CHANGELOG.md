@@ -1,3 +1,10 @@
+## 2.2.0
+
+* Removed the constructor named `empty ()` from the `BasicModel` class.
+* Added the `exportOnlyChanged` and` ignoreNulls` parameters in the `writeValues` method of the` BasicModel` class.
+* Repositioned methods of the `BasicModel` class.
+* Added test for the `BasicModel` class.
+
 ## 2.1.0+1
 
 * Adjustment in the readme query selector

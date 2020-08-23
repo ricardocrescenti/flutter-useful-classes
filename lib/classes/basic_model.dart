@@ -24,6 +24,9 @@ import 'package:flutter/material.dart';
 ///   String name;
 ///   String email;
 ///   String phoneNumber;
+///   
+///   UserModel() : super();  
+///   UserModel.fromJson(json) : super.fromJson(json);
 /// 
 ///   @override
 ///   void readValues() {
@@ -46,7 +49,7 @@ import 'package:flutter/material.dart';
 /// ```
 abstract class BasicModel {
 	/// Original map used in the creation of the class.
-	Map<String, dynamic> _originalMap;
+	Map<String, dynamic> _originalMap = Map();
 
 	/// Last map read by the [updateValues] method to update the class values.
 	Map<String, dynamic> _lastReadedMap;
@@ -57,14 +60,42 @@ abstract class BasicModel {
 	/// Indicates whether only the modified values should be exported during data
 	/// export. This property is set by [toJson] itself, which has a parameter
 	/// with the same name.
-	bool _exportOnlyChanged;
+	bool _exportOnlyChanged = false;
 	
 	/// Indicates whether null objects should be ignored during export. This property
 	/// is set by [toJson] itself, which has a parameter with the same name.
-	bool _ignoreNulls;
-	
+	bool _ignoreNulls = false;
+
 	/// Standard constructor of class [BasicModel].
 	BasicModel();
+	
+	/// Generate the class based on a [Map] `(JSON)`.
+	@mustCallSuper
+	BasicModel.fromJson(dynamic json) {
+		if (json is String) {
+			this._originalMap = jsonDecode(json);
+		} else {
+			this._originalMap = Map.from(json);
+		}
+
+		updateValues(json);
+	}
+
+	/// This method updates the class data with the [map] passed by parameter.
+	@mustCallSuper
+	void updateValues(Map<String, dynamic> map) {
+		_lastReadedMap = map;
+		readValues();
+	}
+
+	/// This method updates the class data. It is called by the [updateValues] 
+	/// and [BasicModel.fromJson] method for creating the class.
+	/// 
+	/// This method is overridden in all classes that inherit from [BasicModel]
+	/// to define the initialization structure of the class based on a [Map] `(JSON)`.
+	@mustCallSuper
+	@protected
+	void readValues();
 
 	/// This method is used to read a value from the [Map] `(JSON)` data and return
 	/// it in the defined type.
@@ -99,40 +130,6 @@ abstract class BasicModel {
 		}
 		return nullValue;
 	}
-	
-	/// Generate the class based on a [Map] `(JSON)`.
-	@mustCallSuper
-	BasicModel.fromJson(dynamic json) {
-		if (json is String) {
-			this._originalMap = jsonDecode(json);
-		} else {
-			this._originalMap = Map.from(json);
-		}
-
-		updateValues(json);
-	}
-
-	/// Generate a class with all null values.
-	@mustCallSuper
-	BasicModel.empty() {
-		_originalMap = Map();
-	}
-
-	/// This method updates the class data with the [map] passed by parameter.
-	@mustCallSuper
-	void updateValues(Map<String, dynamic> map) {
-		_lastReadedMap = map;
-		readValues();
-	}
-
-	/// This method updates the class data. It is called by the [updateValues] 
-	/// and [BasicModel.fromJson] method for creating the class.
-	/// 
-	/// This method is overridden in all classes that inherit from [BasicModel]
-	/// to define the initialization structure of the class based on a [Map] `(JSON)`.
-	@mustCallSuper
-	@protected
-	void readValues();
 
 	/// This method is used in cases where it is necessary to export the class to
 	/// a [Map] `(JSON)`.
@@ -142,11 +139,11 @@ abstract class BasicModel {
 	/// has the [Map] generation structure will be executed.
 	@mustCallSuper
 	Map<String, dynamic> toJson({bool exportOnlyChanged = false, bool ignoreNulls = false}) {
-		_exportOnlyChanged = exportOnlyChanged;
-		_ignoreNulls = ignoreNulls;
+		_exportOnlyChanged = exportOnlyChanged ?? false;
+		_ignoreNulls = ignoreNulls ?? false;
 
 		_lastWritedMap = Map();
-		writeValues();
+		writeValues(_exportOnlyChanged, _ignoreNulls);
 
 		return _lastWritedMap;
 	}
@@ -158,7 +155,7 @@ abstract class BasicModel {
 	/// method.
 	@mustCallSuper
 	@protected
-	void writeValues();
+	void writeValues(bool exportOnlyChanged, bool ignoreNulls);
 	
 	/// This method is used to save the values in a [Map] `(JSON)`, this will be
 	/// used when the class is being exported to a `JSON`,
@@ -172,14 +169,15 @@ abstract class BasicModel {
 	/// the current value of the property, and may return the value as needed.
 	/// 
 	/// It will also be possible to indicate whether null values should be ignored
-	/// using the [onlyNotNull] parameter, or also inform in the [nullValue] 
-	/// parameter a default value in cases where the value is null.
+	/// using the [ignoreNull] parameter.
 	/// 
 	/// Use this method inside the [writeValues] method that you will override to
 	/// define how the output `JSON` will be formed.
 	@protected
-	writeValue(String fieldName, dynamic value, {bool onlyNotNull = false, alwaysExport = false, dynamic Function(dynamic value) convertion, dynamic nullValue}) {    
-		if ((onlyNotNull || _ignoreNulls) && value == null) {
+	writeValue(String fieldName, dynamic value, {bool ignoreNull, exportIfChanged, dynamic Function(dynamic value) convertion}) {    
+		
+		ignoreNull ??= (_ignoreNulls ?? false);
+		if (ignoreNull && value == null) {
 			return;
 		}
 
@@ -189,9 +187,8 @@ abstract class BasicModel {
 			value = (convertion != null ? convertion(value) : value);
 		}
 
-		value ??= nullValue;
-
-		if (_exportOnlyChanged != null && _originalMap != null && _exportOnlyChanged && _originalMap[fieldName] == value && (alwaysExport == null || alwaysExport == false)) {
+		exportIfChanged ??= (_exportOnlyChanged ?? false);
+		if (_originalMap != null && _exportOnlyChanged && _originalMap[fieldName] == value && exportIfChanged) {
 			return;
 		}
 

@@ -44,6 +44,9 @@ class UserModel extends BasicModel {
   String email;
   String phoneNumber;
 
+  UserModel() : super();  
+  UserModel.fromJson(json) : super.fromJson(json);
+
   @override
   void readValues() {
     super.readValues();
