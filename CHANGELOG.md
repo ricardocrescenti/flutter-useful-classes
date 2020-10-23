@@ -1,3 +1,7 @@
+## 2.3.0
+
+* Added the `readList` method in `BasicModel` to load a list of objects from a JSON.
+
 ## 2.2.0
 
 * Adjustments to the `BasicModel` documentation.

@@ -113,22 +113,47 @@ abstract class BasicModel {
 	@protected
 	T readValue<T>(String fieldName, {T Function(dynamic value) convertion, T nullValue}) {
 		if (this._lastReadedMap[fieldName] != null) {
-			if (convertion != null) {
-				return convertion(this._lastReadedMap[fieldName]);
-			} else if (T == int) {
-				return int.parse(this._lastReadedMap[fieldName].toString()) as T;
-			} else if (T == BigInt) {
-				return BigInt.parse(this._lastReadedMap[fieldName].toString()) as T;
-			} else if (T == double) {
-				return double.parse(this._lastReadedMap[fieldName].toString()) as T;
-			} else if (T == DateTime) {
-				if (!(this._lastReadedMap[fieldName] is DateTime)) {
-					return DateTime.parse(this._lastReadedMap[fieldName].toString()) as T;
-				}
-			}
-			return this._lastReadedMap[fieldName] as T;
+			return _convertJsonToValue(this._lastReadedMap[fieldName], (value) => null);
 		}
 		return nullValue;
+	}
+
+	/// This method is used to read a list of values from a [Map] `(JSON)` and 
+	/// return it in the list of defined type.
+	/// 
+	/// If it is necessary to carry out a conversion of the read object before it
+	/// is returned, pass the conversion function in the parameter [convertion], 
+	/// with that the function will receive the value informed in the map, and it
+	/// can be converted as needed.
+	/// 
+	/// It is also possible to indicate a default value for cases where the field
+	/// to be read does not exist in [Map] or is null.
+	/// 
+	/// Use this method within the [readValues] method that you will override in
+	/// the inheritance classes to define how the [Map] will be read for your class.
+	@protected
+	List<T> readList<T>(String fieldName, {T Function(dynamic value) convertion, List<T> nullValue}) {
+		if (this._lastReadedMap[fieldName] != null) {
+			return (this._lastReadedMap[fieldName] as List).map((value) => _convertJsonToValue(value, convertion)).toList();
+		}
+		return nullValue;
+	}
+
+	_convertJsonToValue<T>(dynamic value, T Function(dynamic value) convertion) {
+		if (convertion != null) {
+			return convertion(value);
+		} else if (T == int) {
+			return int.parse(value.toString()) as T;
+		} else if (T == BigInt) {
+			return BigInt.parse(value.toString()) as T;
+		} else if (T == double) {
+			return double.parse(value.toString()) as T;
+		} else if (T == DateTime) {
+			if (!(value is DateTime)) {
+			return DateTime.parse(value.toString()) as T;
+			}
+		}
+		return value as T;
 	}
 
 	/// This method is used in cases where it is necessary to export the class to
@@ -192,6 +217,16 @@ abstract class BasicModel {
 			return;
 		}
 
-		_lastWritedMap[fieldName] = value;
+		_lastWritedMap[fieldName] = _convertValueToJson(value);
+	}
+
+	_convertValueToJson(dynamic value) {
+		if (value is BigInt) {
+			return value.toString();
+		} else if (value is DateTime) {
+			return value.toIso8601String();
+		} else {
+			return value;
+		}
 	}
 }
