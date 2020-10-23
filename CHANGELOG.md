@@ -1,3 +1,7 @@
+## 2.3.1
+
+* Fixed the `readValue` method of `BasicModel` which was always returning null.
+
 ## 2.3.0
 
 * Added the `readList` method in `BasicModel` to load a list of objects from a JSON.

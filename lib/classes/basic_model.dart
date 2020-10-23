@@ -113,7 +113,7 @@ abstract class BasicModel {
 	@protected
 	T readValue<T>(String fieldName, {T Function(dynamic value) convertion, T nullValue}) {
 		if (this._lastReadedMap[fieldName] != null) {
-			return _convertJsonToValue(this._lastReadedMap[fieldName], (value) => null);
+			return _convertJsonToValue(this._lastReadedMap[fieldName], convertion);
 		}
 		return nullValue;
 	}
