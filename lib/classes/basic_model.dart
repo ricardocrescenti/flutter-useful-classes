@@ -134,7 +134,7 @@ abstract class BasicModel {
 	@protected
 	List<T> readList<T>(String fieldName, {T Function(dynamic value) convertion, List<T> nullValue}) {
 		if (this._lastReadedMap[fieldName] != null) {
-			return (this._lastReadedMap[fieldName] as List).map((value) => _convertJsonToValue(value, convertion)).toList();
+			return (this._lastReadedMap[fieldName] as List).map<T>((value) => _convertJsonToValue(value, convertion)).toList();
 		}
 		return nullValue;
 	}

@@ -1,3 +1,7 @@
+## 2.3.2
+
+* Fixed the `readList` method of `BasicModel` that was not returning the map in the requested type.
+
 ## 2.3.1
 
 * Fixed the `readValue` method of `BasicModel` which was always returning null.
