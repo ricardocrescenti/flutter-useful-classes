@@ -1,3 +1,7 @@
+## 2.4.2
+
+* Adjusted 'fromJson' method of 'BasicModel' to give no error when it is tried to load a model passing the null 'json' parameter.
+
 ## 2.3.2
 
 * Fixed the `readList` method of `BasicModel` that was not returning the map in the requested type.

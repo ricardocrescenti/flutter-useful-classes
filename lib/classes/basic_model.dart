@@ -72,7 +72,9 @@ abstract class BasicModel {
 	/// Generate the class based on a [Map] `(JSON)`.
 	@mustCallSuper
 	BasicModel.fromJson(dynamic json) {
-		if (json is String) {
+		if (json == null) {
+			this._originalMap = Map<String, dynamic>();	
+		} else if (json is String) {
 			this._originalMap = jsonDecode(json);
 		} else {
 			this._originalMap = Map.from(json);
