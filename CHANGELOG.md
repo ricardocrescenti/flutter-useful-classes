@@ -1,3 +1,8 @@
+## 2.4.3
+
+* Adjust 'fromJson' method of 'BasicModel' to make no error when passing null 'json' parameter.
+* Update in the file '.gitignore' not to comit 'pubspec.lock'
+
 ## 2.4.2
 
 * Adjusted 'fromJson' method of 'BasicModel' to give no error when it is tried to load a model passing the null 'json' parameter.

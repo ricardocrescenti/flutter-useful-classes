@@ -80,7 +80,7 @@ abstract class BasicModel {
 			this._originalMap = Map.from(json);
 		}
 
-		updateValues(json);
+		updateValues(_originalMap);
 	}
 
 	/// This method updates the class data with the [map] passed by parameter.
