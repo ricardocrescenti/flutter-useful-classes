@@ -1,3 +1,7 @@
+## 2.4.4
+
+* Deleted the file 'pubspec.lock'
+
 ## 2.4.3
 
 * Adjust 'fromJson' method of 'BasicModel' to make no error when passing null 'json' parameter.
