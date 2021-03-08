@@ -25,7 +25,7 @@ import 'package:flutter/foundation.dart';
 /// ```
 abstract class OnDispose {
   /// List of methods that will be called when the object is dropped.
-  final List<Function(dynamic)> onDispose = List();
+  final List<Function(dynamic)> onDispose = [];
 
   /// Method that discards the object and notifies listeners
   @mustCallSuper

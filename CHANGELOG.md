@@ -1,3 +1,7 @@
+## 2.4.5
+
+* Correction made in the initialization of the List.
+
 ## 2.4.4
 
 * Deleted the file 'pubspec.lock'
