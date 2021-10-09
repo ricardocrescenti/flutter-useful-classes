@@ -29,13 +29,13 @@ abstract class OnDispose {
 
   /// Method that discards the object and notifies listeners
   @mustCallSuper
-  dispose() {
+  void dispose() {
     notifyDispose();
   }
 
   /// Notify listeners with dispose of this object.
   @mustCallSuper
-  notifyDispose() {
+  void notifyDispose() {
     onDispose.forEach((element) => element(this));
     onDispose.clear();
   }

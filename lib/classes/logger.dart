@@ -35,25 +35,25 @@ class Logger {
   final bool inDebugMode = !kReleaseMode;
 
   /// Print a log message if the application is in debug mode
-  log(String message) {
+  void log(String message) {
     _print(message);
   }
 
-  info(String message) {
+  void info(String message) {
     _print('💡 ' + message);
   }
 
-  warning(String message) {
+  void warning(String message) {
     _print('⚠️ ' + message);
   }
 
-  error(String message) {
+  void error(String message) {
     _print('⛔ ' + message);
   }
 
-  _print(String message) {
+  void _print(String message) {
     if (inDebugMode) {
-      print((this.prefix != null ? this.prefix + ' ' : '') + message);
+      print((prefix != null ? prefix + ' ' : '') + message);
     }
   }
 }

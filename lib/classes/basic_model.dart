@@ -49,7 +49,7 @@ import 'package:flutter/material.dart';
 /// ```
 abstract class BasicModel {
 	/// Original map used in the creation of the class.
-	Map<String, dynamic> _originalMap = Map();
+	Map<String, dynamic> _originalMap = {};
 
 	/// Last map read by the [updateValues] method to update the class values.
 	Map<String, dynamic> _lastReadedMap;
@@ -73,11 +73,11 @@ abstract class BasicModel {
 	@mustCallSuper
 	BasicModel.fromJson(dynamic json) {
 		if (json == null) {
-			this._originalMap = Map<String, dynamic>();	
+			_originalMap = {};	
 		} else if (json is String) {
-			this._originalMap = jsonDecode(json);
+			_originalMap = jsonDecode(json);
 		} else {
-			this._originalMap = Map.from(json);
+			_originalMap = Map.from(json);
 		}
 
 		updateValues(_originalMap);
@@ -114,8 +114,8 @@ abstract class BasicModel {
 	/// the inheritance classes to define how the [Map] will be read for your class.
 	@protected
 	T readValue<T>(String fieldName, {T Function(dynamic value) convertion, T nullValue}) {
-		if (this._lastReadedMap[fieldName] != null) {
-			return _convertJsonToValue(this._lastReadedMap[fieldName], convertion);
+		if (_lastReadedMap[fieldName] != null) {
+			return _convertJsonToValue(_lastReadedMap[fieldName], convertion);
 		}
 		return nullValue;
 	}
@@ -135,13 +135,13 @@ abstract class BasicModel {
 	/// the inheritance classes to define how the [Map] will be read for your class.
 	@protected
 	List<T> readList<T>(String fieldName, {T Function(dynamic value) convertion, List<T> nullValue}) {
-		if (this._lastReadedMap[fieldName] != null) {
-			return (this._lastReadedMap[fieldName] as List).map<T>((value) => _convertJsonToValue(value, convertion)).toList();
+		if (_lastReadedMap[fieldName] != null) {
+			return (_lastReadedMap[fieldName] as List).map<T>((value) => _convertJsonToValue(value, convertion)).toList();
 		}
 		return nullValue;
 	}
 
-	_convertJsonToValue<T>(dynamic value, T Function(dynamic value) convertion) {
+	T _convertJsonToValue<T>(dynamic value, T Function(dynamic value) convertion) {
 		if (convertion != null) {
 			return convertion(value);
 		} else if (T == int) {
@@ -169,7 +169,7 @@ abstract class BasicModel {
 		_exportOnlyChanged = exportOnlyChanged ?? false;
 		_ignoreNulls = ignoreNulls ?? false;
 
-		_lastWritedMap = Map();
+		_lastWritedMap = {};
 		writeValues(_exportOnlyChanged, _ignoreNulls);
 
 		return _lastWritedMap;
@@ -201,7 +201,7 @@ abstract class BasicModel {
 	/// Use this method inside the [writeValues] method that you will override to
 	/// define how the output `JSON` will be formed.
 	@protected
-	writeValue(String fieldName, dynamic value, {bool ignoreNull, exportIfChanged, dynamic Function(dynamic value) convertion}) {    
+	void writeValue(String fieldName, dynamic value, {bool ignoreNull, exportIfChanged, dynamic Function(dynamic value) convertion}) {    
 		
 		ignoreNull ??= (_ignoreNulls ?? false);
 		if (ignoreNull && value == null) {
@@ -222,7 +222,7 @@ abstract class BasicModel {
 		_lastWritedMap[fieldName] = _convertValueToJson(value);
 	}
 
-	_convertValueToJson(dynamic value) {
+	dynamic _convertValueToJson(dynamic value) {
 		if (value is BigInt) {
 			return value.toString();
 		} else if (value is DateTime) {

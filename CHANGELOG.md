@@ -1,3 +1,7 @@
+## 2.4.5+1
+
+* Made modifications related to updating the `pedantic` package to version `1.11.0`.
+
 ## 2.4.5
 
 * Correction made in the initialization of the List.

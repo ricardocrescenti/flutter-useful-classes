@@ -1,5 +1,5 @@
 name: useful_classes
-version: 2.4.5
+version: 2.4.5+1
 description: Pack with useful classes to facilitate the creation of other resources
 homepage: https://github.com/ricardocrescenti
 repository: https://github.com/ricardocrescenti/flutter-useful-classes
@@ -15,7 +15,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.8.0
+  pedantic: ^1.11.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

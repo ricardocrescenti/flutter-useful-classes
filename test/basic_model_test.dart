@@ -4,7 +4,7 @@ import 'package:useful_classes/useful_classes.dart';
 void main() {
   test('adds one to input values', () {
 
-    BasicModelTest basicModelTest = BasicModelTest();
+    var basicModelTest = BasicModelTest();
     basicModelTest.name = 'Test';
 
     Map json = basicModelTest.toJson();
