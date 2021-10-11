@@ -1,3 +1,7 @@
+## 3.0.0
+
+* Implemented Null Safety
+
 ## 2.4.5+1
 
 * Made modifications related to updating the `pedantic` package to version `1.11.0`.
