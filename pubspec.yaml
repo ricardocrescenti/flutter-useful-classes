@@ -1,12 +1,12 @@
 name: useful_classes
-version: 2.4.5+1
+version: 3.0.0
 description: Pack with useful classes to facilitate the creation of other resources
 homepage: https://github.com/ricardocrescenti
 repository: https://github.com/ricardocrescenti/flutter-useful-classes
 issue_tracker: https://github.com/ricardocrescenti/flutter-useful-classes/issues
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:

@@ -26,7 +26,7 @@ class Logger {
   /// Logger [prefix].
   ///
   /// This prefix will be printed at the beginning of any printed log.
-  final String prefix;
+  final String? prefix;
 
   /// Standard constructor of the Logger class
   Logger({this.prefix});
@@ -53,7 +53,7 @@ class Logger {
 
   void _print(String message) {
     if (inDebugMode) {
-      print((prefix != null ? prefix + ' ' : '') + message);
+      print((prefix != null ? prefix! + ' ' : '') + message);
     }
   }
 }

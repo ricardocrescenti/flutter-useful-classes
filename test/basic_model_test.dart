@@ -82,8 +82,8 @@ void main() {
 }
 
 class BasicModelTest extends BasicModel {
-	String name;
-	String description;
+	String? name;
+	String? description;
 
 	BasicModelTest() : super();
 	BasicModelTest.fromJson(dynamic json) : super.fromJson(json);
