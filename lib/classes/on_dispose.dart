@@ -36,7 +36,9 @@ abstract class OnDispose {
   /// Notify listeners with dispose of this object.
   @mustCallSuper
   void notifyDispose() {
-    onDispose.forEach((element) => element(this));
+    for (var action in onDispose) {
+      action(this);
+    }
     onDispose.clear();
   }
 }

@@ -40,20 +40,20 @@ class Logger {
   }
 
   void info(String message) {
-    _print('💡 ' + message);
+    _print('💡 $message');
   }
 
   void warning(String message) {
-    _print('⚠️ ' + message);
+    _print('⚠️ $message');
   }
 
   void error(String message) {
-    _print('⛔ ' + message);
+    _print('⛔ $message');
   }
 
   void _print(String message) {
     if (inDebugMode) {
-      print((prefix != null ? prefix! + ' ' : '') + message);
+      debugPrint((prefix != null ? '$prefix ' : '') + message);
     }
   }
 }

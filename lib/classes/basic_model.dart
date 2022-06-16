@@ -151,7 +151,7 @@ abstract class BasicModel {
 		} else if (T == double) {
 			return double.parse(value.toString()) as T;
 		} else if (T == DateTime) {
-			if (!(value is DateTime)) {
+			if (value is! DateTime) {
 			return DateTime.parse(value.toString()) as T;
 			}
 		}
