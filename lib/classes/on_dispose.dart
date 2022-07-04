@@ -24,21 +24,25 @@ import 'package:flutter/foundation.dart';
 /// test.dispose();
 /// ```
 abstract class OnDispose {
-  /// List of methods that will be called when the object is dropped.
-  final List<Function(dynamic)> onDispose = [];
 
-  /// Method that discards the object and notifies listeners
-  @mustCallSuper
-  void dispose() {
-    notifyDispose();
-  }
+	/// List of methods that will be called when the object is dropped.
+	final List<Function(dynamic)> onDispose = [];
 
-  /// Notify listeners with dispose of this object.
-  @mustCallSuper
-  void notifyDispose() {
-    for (var action in onDispose) {
-      action(this);
-    }
-    onDispose.clear();
-  }
+	/// Method that discards the object and notifies listeners
+	@mustCallSuper
+	void dispose() {
+		notifyDispose();
+	}
+
+	/// Notify listeners with dispose of this object.
+	@mustCallSuper
+	void notifyDispose() {
+
+		for (var action in onDispose) {
+			action(this);
+		}
+		onDispose.clear();
+
+	}
+
 }

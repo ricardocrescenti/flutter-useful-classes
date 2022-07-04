@@ -23,37 +23,41 @@ import 'package:flutter/foundation.dart';
 /// If it is necessary to add a prefix when printing all logs, use the [prefix]
 /// parameter in the class's constructor.
 class Logger {
-  /// Logger [prefix].
-  ///
-  /// This prefix will be printed at the beginning of any printed log.
-  final String? prefix;
 
-  /// Standard constructor of the Logger class
-  Logger({this.prefix});
+	/// Logger [prefix].
+	///
+	/// This prefix will be printed at the beginning of any printed log.
+	final String? prefix;
 
-  /// Indicates if the app is running in debug mode
-  final bool inDebugMode = !kReleaseMode;
+	/// Standard constructor of the Logger class
+	Logger({this.prefix});
 
-  /// Print a log message if the application is in debug mode
-  void log(String message) {
-    _print(message);
-  }
+	/// Indicates if the app is running in debug mode
+	final bool inDebugMode = !kReleaseMode;
 
-  void info(String message) {
-    _print('💡 $message');
-  }
+	/// Print a log message if the application is in debug mode
+	void log(String message) {
+		_print(message);
+	}
 
-  void warning(String message) {
-    _print('⚠️ $message');
-  }
+	void info(String message) {
+		_print('💡 $message');
+	}
 
-  void error(String message) {
-    _print('⛔ $message');
-  }
+	void warning(String message) {
+		_print('⚠️ $message');
+	}
 
-  void _print(String message) {
-    if (inDebugMode) {
-      debugPrint((prefix != null ? '$prefix ' : '') + message);
-    }
-  }
+	void error(String message) {
+		_print('⛔ $message');
+	}
+
+	void _print(String message) {
+
+		if (inDebugMode) {
+			debugPrint((prefix != null ? '$prefix ' : '') + message);
+		}
+
+	}
+
 }

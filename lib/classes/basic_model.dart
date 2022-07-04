@@ -48,6 +48,7 @@ import 'package:flutter/material.dart';
 /// }
 /// ```
 abstract class BasicModel {
+
 	/// Original map used in the creation of the class.
 	Map<String, dynamic> _originalMap = {};
 
@@ -72,6 +73,7 @@ abstract class BasicModel {
 	/// Generate the class based on a [Map] `(JSON)`.
 	@mustCallSuper
 	BasicModel.fromJson(dynamic json) {
+
 		if (json == null) {
 			_originalMap = {};	
 		} else if (json is String) {
@@ -81,13 +83,16 @@ abstract class BasicModel {
 		}
 
 		updateValues(_originalMap);
+
 	}
 
 	/// This method updates the class data with the [map] passed by parameter.
 	@mustCallSuper
 	void updateValues(Map<String, dynamic> map) {
+
 		_lastReadedMap = map;
 		readValues();
+
 	}
 
 	/// This method updates the class data. It is called by the [updateValues] 
@@ -114,10 +119,12 @@ abstract class BasicModel {
 	/// the inheritance classes to define how the [Map] will be read for your class.
 	@protected
 	T? readValue<T>(String fieldName, {T? Function(dynamic value)? convertion, T? nullValue}) {
+
 		if (_lastReadedMap[fieldName] != null) {
 			return _convertJsonToValue(_lastReadedMap[fieldName], convertion);
 		}
 		return nullValue;
+
 	}
 
 	/// This method is used to read a list of values from a [Map] `(JSON)` and 
@@ -135,13 +142,16 @@ abstract class BasicModel {
 	/// the inheritance classes to define how the [Map] will be read for your class.
 	@protected
 	List<T?>? readList<T>(String fieldName, {T? Function(dynamic value)? convertion, List<T?>? nullValue}) {
+
 		if (_lastReadedMap[fieldName] != null) {
 			return (_lastReadedMap[fieldName] as List).map<T?>((value) => _convertJsonToValue(value, convertion)).toList();
 		}
 		return nullValue;
+
 	}
 
 	T? _convertJsonToValue<T>(dynamic value, T? Function(dynamic value)? convertion) {
+
 		if (convertion != null) {
 			return convertion(value);
 		} else if (T == int) {
@@ -156,6 +166,7 @@ abstract class BasicModel {
 			}
 		}
 		return value as T?;
+
 	}
 
 	/// This method is used in cases where it is necessary to export the class to
@@ -166,6 +177,7 @@ abstract class BasicModel {
 	/// has the [Map] generation structure will be executed.
 	@mustCallSuper
 	Map<String, dynamic> toJson({bool exportOnlyChanged = false, bool ignoreNulls = false}) {
+
 		_exportOnlyChanged = exportOnlyChanged;
 		_ignoreNulls = ignoreNulls;
 
@@ -173,6 +185,7 @@ abstract class BasicModel {
 		writeValues(_exportOnlyChanged, _ignoreNulls);
 
 		return _lastWritedMap;
+
 	}
 
 	/// This method is used to define the export structure of the class values
@@ -220,9 +233,11 @@ abstract class BasicModel {
 		}
 
 		_lastWritedMap[fieldName] = _convertValueToJson(value);
+
 	}
 
 	dynamic _convertValueToJson(dynamic value) {
+
 		if (value is BigInt) {
 			return value.toString();
 		} else if (value is DateTime) {
@@ -230,5 +245,7 @@ abstract class BasicModel {
 		} else {
 			return value;
 		}
+
 	}
+
 }
