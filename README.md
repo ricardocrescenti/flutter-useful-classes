@@ -20,7 +20,7 @@ Add the dependency on `pubspec.yaml`.
 
 ```yaml
 dependencies:
-  useful_classes: ^2.0.0
+  useful_classes: ^3.0.0
 ```
 
 Import the package in the source code.
